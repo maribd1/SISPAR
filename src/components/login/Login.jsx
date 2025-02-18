@@ -1,21 +1,24 @@
+import {useNavigate} from "react-router-dom";
 import Capa from "../../assets/Tela Login/imagem tela de login.png";
 import Logo from "../../assets/Tela Login/logo-ws.png";
 import styles from "./Login.module.scss";  //importando o componente de estilização do Login.
 
-function Login(){
+function Login() {
+
+    const navigate = useNavigate() //iniciando o hook useNavigate
+
+    const irParaReembolsos = () => {
+        navigate("/reembolsos") //redirecionando para a pagina de reembolsos
+    }
     return(
 
         <main>
 
-            <section className={styles.conteinerlogin}>
+            <section className={styles.conteinerLogin}>
                 <img src= {Capa} alt="Foto de navio cargueiro" />
             </section>
 
-            <section>
-                <p>Reservada para imagem</p>
-            </section>
-
-            <section>
+            <section className={styles.conteinerForm}>
 
                 <div>
                     <img src= {Logo} alt="Logo da Wilson sons" />
@@ -31,16 +34,16 @@ function Login(){
 
                     <input type="password" name="password" id="password" placeholder="Senha"/>
                 
-                    <p>Esqueci minha senha</p>
+                    <a href="">Esqueci minha senha</a>
 
-                    <div>
-                    <button>Entrar</button>
+                    <div className={styles.buttonGroup}>
+                    <button onClick={irParaReembolsos}>Entrar</button>
                     <button>Criar Conta</button>
                     </div>
                 </form>
             
             </section>
        </main>
-    )
+    );
 }
-export default Login
+export default Login;
