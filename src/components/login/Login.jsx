@@ -21,7 +21,7 @@ function Login() {
             <section className={styles.conteinerForm}>
 
                 <div>
-                    <img src= {Logo} alt="Logo da Wilson sons" />
+                    <img className={styles.Logo} src= {Logo} alt="Logo da Wilson sons" />
 
                     <h1>Boas vindas ao Novo Portal SISPAR</h1>
 

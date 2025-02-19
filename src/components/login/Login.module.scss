@@ -14,11 +14,18 @@ main{
 
 .conteinerForm{
     width: 35%;
-    //flex: 1; para preencher o campo que esta vazio
+    flex: 1; //para preencher o campo que esta vazio
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    .logo{
+        height: 52px;
+        width: 116px;
+        display: flex;
+        align-items: center;
+    }
 
     h1{
         font-size: 2rem;
