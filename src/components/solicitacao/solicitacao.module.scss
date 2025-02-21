@@ -8,7 +8,7 @@
 
 .headerSolicitacao{
     border: solid red;
-    width: 20%;
+    width: 20vw;
     display: flex;
 }
 
@@ -19,15 +19,13 @@
 .formSolicitacao{
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    border: solid;
 }
 
-//estilização padrão dos inputs, select e label
+//estilização padrão dos inputs, select, label e textarea
 
 label{
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #23282F;
 }
 
@@ -87,6 +85,82 @@ input, select, textarea{
 //Estilização do grupo2.
 
 .grupo2{
+    border: solid;
+    width: 60%;
+    height: 25vh;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.inputData {
     border: solid green;
-    width: 65%;
+    width: 20%;
+}
+  
+.tipoDeDespesas {
+    border: solid blue;
+    width: 30%;
+}
+  
+.centroDeCusto {
+    border: solid purple;
+    width: 45%;
+}
+  
+.ordem,
+.divisoes,
+.pep,
+.distancia {
+    border: solid red;
+    width: 8%;
+}
+  
+.moeda,
+.valorKm,
+.valorFaturado,
+.despesa {
+    border: solid pink;
+    width: 11%;
+}
+  
+.botoes {
+    border: solid red;
+    width: 15%;
+    display: flex;
+    justify-content: space-evenly;
+  
+    .botaoSalvar {
+      background-color: #001a3d;
+      color: #ffffff;
+      width: 5vw;
+    }
+    .botaoDeletar {
+      width: 2vw;
+      background-color: #00bedd;
+    }
+}
+  
+  //Estilização da tabela
+table{
+    width: 100%;
+    border: solid;
+    border-collapse:collapse;
+}
+  
+  
+//Cabeçalho
+th{
+  
+    background-color: #CBD4E1;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #23282F;
+}
+  
+  
+th,td{
+    border: solid;
+    text-align: center;
 }
