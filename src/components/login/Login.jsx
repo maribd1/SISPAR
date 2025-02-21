@@ -15,32 +15,41 @@ function Login() {
         <main>
 
             <section className={styles.conteinerLogin}>
-                <img src= {Capa} alt="Foto de navio cargueiro" />
+
+                <img className={styles.imgNavio} src={Capa} alt="Foto de navio cargueiro" />
+
             </section>
 
             <section className={styles.conteinerForm}>
 
-                <div>
-                    <img className={styles.Logo} src= {Logo} alt="Logo da Wilson sons" />
+                <section className={styles.conteinerForm2}>
 
-                    <h1>Boas vindas ao Novo Portal SISPAR</h1>
+                    <div className={styles.conteinerHeaderForm}>
+                        <img className={styles.Logo} src={Logo} alt="Logo da Wilson sons" />
 
-                    <p>Sitema de Emissão de Boletos e Pagamentos</p>
-                </div>
+                        <h1>Boas vindas ao Novo Portal SISPAR</h1>
 
-                <form action="">
-
-                    <input type="email" name="email" id="email" placeholder="Email"/>
-
-                    <input type="password" name="password" id="password" placeholder="Senha"/>
-                
-                    <a href="">Esqueci minha senha</a>
-
-                    <div className={styles.buttonGroup}>
-                    <button onClick={irParaReembolsos}>Entrar</button>
-                    <button>Criar Conta</button>
+                        <p>Sitema de Emissão de Boletos e Pagamentos</p>
                     </div>
-                </form>
+
+                    <form action="">
+
+                        <input type="email" name="email" id="email" placeholder="Email"/>
+
+                        <input type="password" name="password" id="password" placeholder="Senha"/>
+                    
+                        <a href="">Esqueci minha senha</a>
+
+                        <div className={styles.buttonGroup}>
+
+                        <button className={styles.button1} onClick={irParaReembolsos}>Entrar</button>
+
+                        <button className={styles.button2} >Criar Conta</button>
+
+                        </div>
+                    </form>
+                
+                </section>
             
             </section>
        </main>

@@ -1,6 +1,4 @@
 .navBarEstilo {
-    background-color: aquamarine;
-    border: solid;
     height: 100vh;
     width: 5%;
     display: flex;
@@ -14,13 +12,14 @@
         width: 60%;
         height: 5vh;
         border-radius: 6px;
+        border: none;
     }
 
     .buttonSair{
         background-color: #63758D;
     }
 
-    section{
+    .sectionNavBar{
         //border: solid red;
         width: 100%;
         height: 40vh;
@@ -29,4 +28,17 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    div{    
+        //border: solid blue;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 30vh;
+        width: 100%;
+    }
+}
+.navBarEstilo:hover{
+    padding: 20%;
 }

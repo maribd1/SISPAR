@@ -1,62 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 main{
     display: flex;
+    height: 100%;
+    width: 100%;
+
 }
 
 .conteinerLogin{
-    height: 60%;
-    width: 100vh;
-    background-repeat: no-repeat;
+    height: 100%;
+    width: 55%;
+    //background-repeat: no-repeat;
     //background-size: cover; //pega todo tamanho da caixa
     //background-size: contain; //exatamente o tamanho da imagem
-    background-size: 100% 100vh; //referente as medidas
-    background-position: center;
+    //background-size: 100% 100%; //referente as medidas
+    //background-position: center;
+    
+
+    .imgNavio{
+        height: 100vh;
+        width: 100%;
+        //background-size: cover;
+        object-fit: fill;
+        display: block;
+    }
 }
 
 .conteinerForm{
-    width: 35%;
+    width: 45%;
+    height: 100vh;
     flex: 1; //para preencher o campo que esta vazio
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    .logo{
-        height: 52px;
-        width: 116px;
+    .conteinerForm2{
+        width: 50%;
+        height: 60%;
         display: flex;
-        align-items: center;
-    }
-
-    h1{
-        font-size: 2rem;
-        width: 15vw;
-        text-align: center;
-    }
-
-    form{
-        height: 20vh;
-        display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         flex-direction: column;
         align-items: center;
 
-        input{
-            height: 4vh;
-            width: 15vw;
-            border-radius: 6px;
-        }
-
-        .buttonGroup{
-            width: 15vw;
-            height: 4vh;
-            justify-content: space-evenly;
+        .conteinerHeaderForm{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
             align-items: center;
-        
-            button{
-                width: 5vw;
-                height: 100%;
-                font-size: 1rem;
+            justify-content: center;
+
+            .Logo{
+                width: 34%;
+                height: 34%;
+                margin-bottom: 3%;
+            }
+
+            h1{
+                font-size: 1.6rem;
+                font-weight: 700;
+                text-align: center;
+                color: #23282f;
+                font-family: "Inter", sans-serif;
+            }
+
+            p{
+                font-size: .875rem;
+                font-weight: 700;
+                font-family: "Inter", sans-serif;
+                color: #0844C4;
+                text-align: center;
             }
         }
+
+        form{
+            height: 50%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+
+            input{
+                height: 25%;
+                width: 100%;
+                border-radius: 4px;
+                padding: 1rem;
+            }
+
+            a{
+                text-decoration: none;
+                color: #23282F;
+                font-weight: 500;
+                font-size: 1rem;
+                font-family: "Inter", sans-serif;
+                padding: 1%;
+                margin: 2%;
+            }
+
+            .buttonGroup{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+
+                .button1{
+                    background-color: #001A3D;
+                    width: 45%;
+                    height: 90%;
+                    font-size: 1rem;
+                    border-radius: 6px;
+                    color: #FFFFFF;
+                    border: none;
+                    font-family: "Inter", sans-serif;
+                    font-weight: 500;
+                }
+
+                .button2{
+                    background-color: #00BEDD;
+                    width: 45%;
+                    height: 90%;
+                    font-size: 1rem;
+                    border-radius: 6px;
+                    color: #FFFFFF;
+                    border: none;
+                    font-family: "Inter", sans-serif;
+                    font-weight: 500;
+                }
+            }
+        }
+
     }
+
+    
 }

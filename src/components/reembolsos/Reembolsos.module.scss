@@ -1,46 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 .layout{
     display: flex;
+    height: 100%;
+    width: 100%;
 }
 
-header{
+.mainReembolsos{
     display: flex;
-    //border: solid red;
-    width: 10%;
-    height: 5vh;
-    justify-content: space-evenly;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
     align-items: center;
-
-    p{
-        font-size: 1rem;
+    
+    header{
+        display: flex;
+        width: 100%;
+        height: 7%;
+        justify-content: left;
+        align-items: end;
+        .containerHeader{
+            display: flex;
+            justify-content: space-around;
+            width: 15%;
+            p{
+                font-size: 1rem;
+                font-family: "Inter", sans-serif;
+            }
+        }
     }
 }
 
-.mainReembolsos {
-    display: flex;
-    flex-direction: column;
-    height: 95vh;
-}
-
-.containerCards{
+.conteinerCards{
     border: blue;
     display: flex;
+    width: 100%;
     justify-content: space-between;
-    align-items: center;
-    width: 40vw;
-    height: 35vh;
 
     .card{
-    width: 15vw;
-    height: 20vh;
-    border: red;
-    display: flex;
-    
-
+        border: solid .8px rgba(203, 212, 225, 1);
+        display: flex;
+        border-radius: 4px;
+        padding: 10% 10%;
+        
     }    
 }
 
 article{
-    border: solid;
+border: solid;
   width: 12vw;
   height: 18vh;
   display: flex;
@@ -49,13 +55,14 @@ article{
   align-items: center;
 }
 
-.containerStatus {
-    width: 40vw;
-    height: 15vh;
-    // border: solid green;
+.conteinerStatus {
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border: solid 1px rgba(203, 212, 225, 1);
+    border-radius: 3px;
+    padding: 3%;
 
     div{
         //   border: solid orange;
@@ -94,16 +101,13 @@ article{
 .containerSistema{
     display: flex;
     width: 9vw;
-    // border: solid;
     justify-content: space-between;
 }
 
 .centralizar{
-    width: 100%;
+    width: 80%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    //align-items: flex-start;
-    //border:solid green;
-    padding-left: 20rem;
 }

@@ -1,6 +1,6 @@
 import styles from "./Reembolsos.module.scss";
 import Home from "../../assets/Dashboard/Vector (1).png";
-import Seta from "../../assets/Dashboard/Vector.png";
+import Seta from "../../assets/Header/seta.png";
 import Analises from "../../assets/Dashboard/Análises.png";
 import NumeroAnalises from "../../assets/Dashboard/N-Análises.png";
 import NumeroAprovados from "../../assets/Dashboard/N-Aprovados.png";
@@ -14,21 +14,22 @@ import SolicitarReembolso from "../../assets/Dashboard/Solicitar - Reembolso.png
 import NavBar from "../navbar/NavBar.jsx";
 
 function Reembolsos(){
+
     return(
         <div className={styles.layout}>
             <NavBar/>
-
-            <header>
-
-                <img src={Home} alt="Vetor de uma casinha" />
-
-                <img src={Seta} alt="Vetor de uma setinha" />
-
-                <p>Reembolsos</p>
-
-            </header>
-
             <main  className={styles.mainReembolsos}>
+
+                <header>
+                    <div className={styles.containerHeader}>
+                        <img src={Home} alt="Vetor de uma casinha" />
+
+                        <img src={Seta} alt="Vetor de uma setinha" />
+
+                        <p>Reembolsos</p>
+                    </div>
+                </header>                           
+
 
                 <section className={styles.centralizar}>
 

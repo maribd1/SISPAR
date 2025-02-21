@@ -3,12 +3,12 @@
 }
 
 .containerPrincipalSolicitacao{
-    width: 95vw;
+    width: 95%;
 }
 
 .headerSolicitacao{
     border: solid red;
-    width: 20vw;
+    width: 20%;
     display: flex;
 }
 
@@ -18,25 +18,30 @@
 
 .formSolicitacao{
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border: solid;
 }
 
-//estilização padrão para os inputs, selects
+//estilização padrão dos inputs, select e label
 
 label{
     font-weight: 700;
-    font-size: 1.18rem;
+    font-size: 1.1rem;
     color: #23282F;
 }
 
 input, select, textarea{
     border-radius: 6px;
     border: solid #CBD4E1 0.8px;
-    height: 3vh;
+    height: 4vh;
     width: 100%;
 }
 
+//Estilização do grupo1
+
 .grupo1{
-    width: 40%;
+    width: 30%;
     height: 25vh;
     border: solid green;
     display: flex;
@@ -63,6 +68,8 @@ input, select, textarea{
 .inputMotivo{
     //border: solid orange;
     width: 100%;
+    display: flex;
+    flex-direction: column;
     
     textarea{
         height: 10vh;
@@ -75,5 +82,11 @@ input, select, textarea{
     background-color: #CBD4E1;
     height: 25vh;
     width: 0.1vw;
+}
 
+//Estilização do grupo2.
+
+.grupo2{
+    border: solid green;
+    width: 65%;
 }
