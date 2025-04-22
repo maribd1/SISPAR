@@ -29,7 +29,7 @@ function Login() {
 
                         <h1>Boas vindas ao Novo Portal SISPAR</h1>
 
-                        <p>Sitema de Emissão de Boletos e Pagamentos</p>
+                        <p>Sistema de Emissão de Boletos e Pagamentos</p>
                     </div>
 
                     <form action="">

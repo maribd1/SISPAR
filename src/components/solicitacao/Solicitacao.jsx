@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./solicitacao.module.scss";
 import NavBar from "../navbar/NavBar.jsx";
 import Home from "../../assets/Header/botão - Home.png";
@@ -5,8 +6,8 @@ import Seta from "../../assets/Dashboard/Vector.png";
 import Deletar from "../../assets/Solicitacao/deletar.png";
 import Lixeira from "../../assets/Solicitacao/lixeira.png";
 import Motivo from "../../assets/Solicitacao/motivo.png";
-import Api from "../Services/Api";
-import { useState } from "react";
+import Api from "../../Services/Api";
+import {useState, useEffect} from "react";
 
 function Solicitacao() {
 
@@ -100,14 +101,19 @@ function Solicitacao() {
         try {
             //aqui colocamos o que queremos 'tentar' fazer
 
+            //1º argumento é caminho da rota "/refunds/new" é uma rota no seu backend
+            //2º argumento é o que será enviado: dadosReembolso, os dados do formulário.
+
             // Faz uma requisição POST para o endpoint /refunds/new
             // Enviando junto os dados que estão salvos no estado "dadosReembolso"
             const response = await Api.post("/refunds/new", dadosReembolso);
+
             console.log("Resposta da API", response); // Mostra no console a resposta da API (útil pra desenvolvedores testarem)
         
             alert("Reembolso solicitado com sucesso!"); // Mostra um alerta avisando que deu certo
         
             setFoiEnviado(true);
+            //Ativando o estado "foiEnviado" para true
             // Atualiza o estado "foiEnviado" para true
             // Isso ativa o useEffect que está lá embaixo
         } catch (error) {
@@ -129,6 +135,11 @@ function Solicitacao() {
           // Assim o useEffect não fica rodando pra sempre
         }
     }, [foiEnviado]); // Esse efeito só roda quando "foiEnviado" mudar
+
+    //RESUMINDO:
+   //O if (foiEnviado) serve para executar algo somente quando o envio foi concluído.
+   //O estado começa como false, mas vira true quando o envio é feito com sucesso.
+   //O useEffect só roda quando essa variável muda, e por isso o if é necessário para não rodar à toa.
     
     //Resumo simplificado:
     //useState cria variáveis que guardam informações e atualizam a tela.
@@ -183,7 +194,7 @@ function Solicitacao() {
 
                                 <label htmlFor="prestacao">Nº Prest. Contas</label>
 
-                                <input value={nPrestacao} name="nPrestacao" type="text" onChange={(e) => setnPrestacao(e.target.value)} />
+                                <input value={nPrestacao} name="nPrestacao" type="number" onChange={(e) => setnPrestacao(e.target.value)} />
 
                             </div>
 
@@ -255,19 +266,19 @@ function Solicitacao() {
                             <div className={styles.ordem}>
 
                                 <label htmlFor="ordemInterna">Ord. Int.</label>
-                                <input type="number" value={ordemInterna} name="ordemInterna"onChange={(e) => setorOrdemInterna(e.target.value)} />
+                                <input type="text" value={ordemInterna} name="ordemInterna"onChange={(e) => setorOrdemInterna(e.target.value)} />
                             </div>
 
                             <div className={styles.divisoes}>
 
                                 <label htmlFor="divisao">Div.</label>
-                                <input type="number" value={divisao} name="divisao"  onChange={(e) => setDivisao(e.target.value)}/>
+                                <input type="text" value={divisao} name="divisao"  onChange={(e) => setDivisao(e.target.value)}/>
                             </div>
 
                             <div className={styles.pep}>
 
                                 <label htmlFor="pep">PEPt</label>
-                                <input type="number" value={pep} name="pep" onChange={(e) => setPep(e.target.value)} />
+                                <input type="text" value={pep} name="pep" onChange={(e) => setPep(e.target.value)} />
                             </div>
 
                             <div className={styles.moeda}>
@@ -275,7 +286,7 @@ function Solicitacao() {
 
                                 <select name="moeda" value={moeda}  onChange={(e) => setMoeda(e.target.value)}>
 
-                                    <option value="">Selecionar</option>
+                                    <option value=""></option>
                                     <option value="brl">BRL</option>
                                     <option value="ars">ARS</option>
                                     <option value="usd">USD</option>
@@ -286,14 +297,14 @@ function Solicitacao() {
 
                                 <label htmlFor="distancia"> Dist. / Km</label>
 
-                                <input type="number" name="distanciaKm" value={distanciaKm} onChange={(e) => setDistanciaKm(e.target.value)} />
+                                <input type="text" name="distanciaKm" value={distanciaKm} onChange={(e) => setDistanciaKm(e.target.value)} />
                             </div>
 
                             <div className={styles.valorKm}>
 
                                 <label htmlFor="valor"> Valor / Km</label>
 
-                                <input type="number" name="valorKm" value={valorKm} onChange={(e) => setValorKm(e.target.value)} />
+                                <input type="text" name="valorKm" value={valorKm} onChange={(e) => setValorKm(e.target.value)} />
                             </div>
 
                             <div className={styles.valorFaturado}>
@@ -360,6 +371,7 @@ function Solicitacao() {
                             {dadosReembolso.map((item, index) => (
 
                             <tr key={index}>
+                                
                                 <td>
                                 {" "}
                                 <img src={Lixeira} alt="" />{" "}
@@ -368,6 +380,7 @@ function Solicitacao() {
                                 <td> {item.empresa} </td>
                                 <td> {item.nPrestacao} </td>
                                 <td> {item.data}</td>
+
                                 <td>
                                 {" "}
                                 <img src={Motivo} alt="" />{" "}

@@ -1,8 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./components/login/Login.jsx";
 import Reembolsos from "./components/reembolsos/Reembolsos.jsx";
-import Solicitacao from "./components/solicitacao/Solicitacao.jsx";
-import NavBar from "./components/navbar/NavBar.jsx";
+import Solicitacao from "./components/solicitacao/Solicitacao.jsx"; 
 import axios from "axios";
 
 import "./Global.scss";
@@ -12,8 +11,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login/>} />
-
-        <Route path="/navbar" element={<NavBar/>} />
 
         <Route path="/reembolsos" element={<Reembolsos/>} />
 
