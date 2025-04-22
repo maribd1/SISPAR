@@ -7,7 +7,6 @@ import Sair from "../../assets/Header/Botão - Sair.png";
 import Perfil from "../../assets/Header/image.png";
 import Fechar from "../../assets/Header/imagem-fechar-header.png";
 import styles from "./NavBar.module.scss";
-//import loginPage from "/src/components/login/Login.jsx";
 
 function NavBar(){
 
@@ -26,25 +25,25 @@ function NavBar(){
                <img src={Perfil} alt="Vetor de perfil" />
 
                 <div>
-                    <button onclick={()=>navigate("/reembolsos")}>
+                    <button onClick={()=>navigate("/reembolsos")}>
 
                         <img src={Home} alt="Vetor de Home" />
 
                     </button>
 
-                    <button onclick={()=>navigate("/solicitacao")}>
+                    <button onClick={()=>navigate("/solicitacao")}>
 
                         <img src={Solicitacao} alt="Vetor de solicitação" />
 
                     </button>
 
-                    <button onclick={()=>navigate("/reembolsos")}>
+                    <button onClick={()=>navigate("/reembolsos")}>
 
                         <img src={Pesquisa} alt="Vetor de pesquisa" />
 
                     </button>
 
-                    <button onclick={()=>navigate("/solicitacao")}>
+                    <button onClick={()=>navigate("/solicitacao")}>
 
                         <img src={Historico} alt="Vetor de histórico" />
 
@@ -52,7 +51,7 @@ function NavBar(){
                 </div>
             </section>
 
-            <button onclick={()=>navigate("/login")} className={styles.buttonSair}>
+            <button onClick={()=>navigate("/login")} className={styles.buttonSair}>
 
                 <img src={Sair} alt="Botão de sair" />
                 
