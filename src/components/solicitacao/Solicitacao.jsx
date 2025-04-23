@@ -5,8 +5,11 @@ import Home from "../../assets/Header/botão - Home.png";
 import Seta from "../../assets/Dashboard/Vector.png";
 import Deletar from "../../assets/Solicitacao/deletar.png";
 import Lixeira from "../../assets/Solicitacao/lixeira.png";
+import Salvar from "../../assets/Solicitacao/+.png"
+import Check from "../../assets/Solicitacao/check.png";
+import Cancelar from "../../assets/Solicitacao/x.png";
 import Motivo from "../../assets/Solicitacao/motivo.png";
-import Api from "../../Services/Api";
+import Api from "../../Services/Api.jsx"; //Impotando a api que esta guardada na pasta services
 import {useState, useEffect} from "react";
 
 function Solicitacao() {
@@ -27,7 +30,7 @@ function Solicitacao() {
 
   const [centroCusto, setCentroCusto] = useState(""); // Estado para o campo centro de custo
 
-  const [ordemInterna, setorOrdemInterna] = useState(""); // Estado para o campo ordem interna
+  const [ordemInterna, setOrdemInterna] = useState(""); // Estado para o campo ordem interna
 
   const [divisao, setDivisao] = useState(""); // Estado para o campo divisão
 
@@ -43,7 +46,16 @@ function Solicitacao() {
 
   const [despesa, setDespesa] = useState(""); // Estado para o campo despesa
 
-  const [dadosReembolso, setDadostReembolso] = useState([]);
+  const [dadosReembolso, setDadosReembolso] = useState([]);
+
+  const [enviado, setEnviado] = useState(false);
+ 
+   useEffect(() => {
+     if (enviado) {
+       setDadosReembolso([]); // Limpa os dados após o envio
+       setEnviado(false); // Reseta o estado de controle
+     }
+   }, [enviado]);
 
   //--- FUNÇÃO PARA CAPTURAR OS VALORES DOS ESTADOS---
 
@@ -66,9 +78,14 @@ function Solicitacao() {
             valorFaturado,
             despesa,
         };
-        setDadostReembolso(dadosReembolso.concat(objetoReembolsos));
+        setDadosReembolso(dadosReembolso.concat(objetoReembolsos));
         limparCampos(); //quando eu clicar em salvar, ative a função limparCampos e limpas os inputs
     };
+
+    //----FUNÇÃO PARA ENVIAR OS DADOS PARA O BD -----
+
+    const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0NDM5ODU5NiwianRpIjoiOTdkNWI0YmUtOTU3My00ZmEzLTlkY2ItMjE2MGY3MmRiZmUzIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDQzOTg1OTYsImNzcmYiOiIwNGViOTcwNy05NDFjLTQwYWItOTJiZS04ZjU0MTliNGFmOTQiLCJleHAiOjE3NDQzOTk0OTZ9.R87xKzHSVishWF8ZNjWnRnhfoEmS0GXx4sN2y6TUR70";
 
     //FUNÇÃO PARA LIMPAR OS CAMPOS DO FORMULÁRIO (INPUTS)
  
@@ -78,10 +95,10 @@ function Solicitacao() {
       setnPrestacao(""),
       setDescricao(""),
       setData(""),
-      setMotivo(""),
+      //setMotivo(""),
       setTipoReembolso(""),
       setCentroCusto(""),
-      setorOrdemInterna(""),
+      setOrdemInterna(""),
       setDivisao(""),
       setPep(""),
       setMoeda(""),
@@ -106,7 +123,18 @@ function Solicitacao() {
 
             // Faz uma requisição POST para o endpoint /refunds/new
             // Enviando junto os dados que estão salvos no estado "dadosReembolso"
-            const response = await Api.post("/refunds/new", dadosReembolso);
+
+            // Conts response = O resultado do servidor
+            //await (esperar) = Faz com que o código espere a resposta da API.
+            //post = é um método que serve para enviar algo para o servidor
+            const response = await Api.post("/refunds/new", dadosReembolso, {
+                headers: {
+                 authorization: `Bearer ${token}`,
+                 "Content-Type": "application/json",
+                },
+            });
+
+            setEnviado(true); // Aciona o useEffect
 
             console.log("Resposta da API", response); // Mostra no console a resposta da API (útil pra desenvolvedores testarem)
         
@@ -122,6 +150,17 @@ function Solicitacao() {
         console.log("Erro ao enviar", error); //Mostra o erro se algo der errado
         }
     };
+
+    ///----------------FUNÇÃO DE DELETAR ----------------------
+   // Essa função serve para remover um item da lista de reembolsos, com base no número da posição dele (índice). Ela cria uma nova lista sem aquele item e atualiza o estado com essa nova lista.
+ 
+   const handleDelete = (index) => {
+        setDadosReembolso(dadosReembolso.filter((item, i) => i !== index));
+    };
+
+  // Essa é uma função chamada handleDelete.
+  // Ela recebe como parâmetro um index, que representa a posição do item que queremos remover da lista dadosReembolso.
+
 
     // Hook useEffect serve pra reagir a mudanças nos estados
 
@@ -146,6 +185,15 @@ function Solicitacao() {
     //A função enviarParaAnalise manda os dados pra um servidor (API).
     // useEffect roda automaticamente quando a variável foiEnviado muda.
     //Depois que os dados são enviados, ele limpa tudo pra poder começar de novo.
+
+     //---------------FUNÇÃO PARA LIMPAR TODA A LISTA, AO CLICAR NO BOTÃO CANCELAR REEMBOLSO ----
+ 
+   const cancelarSolicitacao = () => {
+    setDadosReembolso([]); // limpa todos os dados salvos
+    limparCampos(); // limpa os inputs também (se quiser)
+  };
+
+  //-------------------
 
     return(
         <div className={styles.layoutSolicitacao}>
@@ -202,7 +250,7 @@ function Solicitacao() {
 
                                 <label htmlFor="descricao">Descrição / Motivo do Reembolso</label>
 
-                                <textarea value={descricao} name={descricao} onChange={(e) => setDescricao(e.target.value)}>{""}</textarea>
+                                <textarea value={descricao} name="descricao" onChange={(e) => setDescricao(e.target.value)} />
 
                             </div>
                         </div>
@@ -223,7 +271,7 @@ function Solicitacao() {
 
                                 <label htmlFor="tipoReembolso">Tipos de Despesas</label>
 
-                                <select name="tipoReembolso" value={tipoReembolso} onChange={(e) => setTipoReembolso(e.target.value)}>
+                                <select name="tipoReembolso" value={tipoReembolso} onChange={(e) => setTipoReembolso(e.target.value)} id="tipoReembolso">
 
                                     <option value="selecionar">Selecionar</option>
 
@@ -231,15 +279,15 @@ function Solicitacao() {
 
                                     <option value="combustivel">Combustivel</option>
 
-                                    <option value="conducao"> Condução</option>
+                                    <option value="conducao">Condução</option>
 
-                                    <option value="estacionamento"> Estacionamento</option>
+                                    <option value="estacionamento">Estacionamento</option>
 
-                                    <option value="viagem adm"> Viagem Admin.</option>
+                                    <option value="viagem adm">Viagem Admin.</option>
 
-                                    <option value="viagem oper"> Viagem Operacional</option>
+                                    <option value="viagem oper">Viagem Operacional</option>
 
-                                    <option value="eventos"> Eventos de representação</option>
+                                    <option value="eventos">Eventos de representação</option>
                                                         
                                 </select>
                             </div>
@@ -248,12 +296,9 @@ function Solicitacao() {
 
                                 <label htmlFor="custo">Centro de custos</label>
 
-                                <select name="centroCusto" value={centroCusto} onChange={(e) => setCentroCusto(e.target.value)}>
+                                <select name="centroCusto" value={centroCusto} onChange={(e) => setCentroCusto(e.target.value)} id="centroCusto">
+
                                     <option value="">Selecionar</option>
-
-                                    <option value="">Alimentação</option>
-
-                                    <option value="">Combustível</option>
 
                                     <option value="FIN CONTROLES INTERNOS MTZ">1100109002 - FIN CONTROLES INTERNOS MTZ</option>
 
@@ -266,23 +311,24 @@ function Solicitacao() {
                             <div className={styles.ordem}>
 
                                 <label htmlFor="ordemInterna">Ord. Int.</label>
-                                <input type="text" value={ordemInterna} name="ordemInterna"onChange={(e) => setorOrdemInterna(e.target.value)} />
+
+                                <input type="number" value={ordemInterna} name="ordemInterna" onChange={(e) => setOrdemInterna(e.target.value)} id="ordemInterna" />
                             </div>
 
                             <div className={styles.divisoes}>
 
                                 <label htmlFor="divisao">Div.</label>
-                                <input type="text" value={divisao} name="divisao"  onChange={(e) => setDivisao(e.target.value)}/>
+                                <input type="number" value={divisao} name="divisao"  onChange={(e) => setDivisao(e.target.value)}/>
                             </div>
 
                             <div className={styles.pep}>
 
-                                <label htmlFor="pep">PEPt</label>
-                                <input type="text" value={pep} name="pep" onChange={(e) => setPep(e.target.value)} />
+                                <label htmlFor="pep">PEP</label>
+                                <input type="number" value={pep} name="pep" onChange={(e) => setPep(e.target.value)} />
                             </div>
 
                             <div className={styles.moeda}>
-                                <label htmlFor="moeda"> Moeda</label>
+                                <label htmlFor="moeda">Moeda</label>
 
                                 <select name="moeda" value={moeda}  onChange={(e) => setMoeda(e.target.value)}>
 
@@ -295,41 +341,42 @@ function Solicitacao() {
 
                             <div className={styles.distancia}>
 
-                                <label htmlFor="distancia"> Dist. / Km</label>
+                                <label htmlFor="distancia">Dist. / Km</label>
 
-                                <input type="text" name="distanciaKm" value={distanciaKm} onChange={(e) => setDistanciaKm(e.target.value)} />
+                                <input type="number" name="distanciaKm" value={distanciaKm} onChange={(e) => setDistanciaKm(e.target.value)} />
                             </div>
+ 
 
                             <div className={styles.valorKm}>
 
                                 <label htmlFor="valor"> Valor / Km</label>
 
-                                <input type="text" name="valorKm" value={valorKm} onChange={(e) => setValorKm(e.target.value)} />
+                                <input type="number" name="valorKm" value={valorKm} onChange={(e) => setValorKm(e.target.value)} />
                             </div>
 
                             <div className={styles.valorFaturado}>
 
-                                <label htmlFor="faturado"> Val. Faturado</label>
+                                <label htmlFor="faturado">Val. Faturado</label>
 
                                 <input type="number" name="valorFaturado" value={valorFaturado} onChange={(e) => setValorFaturado(e.target.value)} />
                             </div>
 
                             <div className={styles.despesa}>
 
-                                <label> Despesa</label>
+                                <label htmlFor="taxa">Despesa</label>
 
                                 <input type="number" name="despesa" value={despesa} onChange={(e) => setDespesa(e.target.value)} />
                             </div>
 
                             <div className={styles.botoes}>
 
-                                <button type="submit" onClick={handleSubmit} className={styles.botaoSalvar}> 
-                                    <img src="" alt="" /> Salvar
+                                <button type="submit" onClick={handleSubmit} className={styles.botaoSalvar}>
+                                    <img src={Salvar} alt="Símbolo de adição" /> Salvar
                                 </button>
 
                                 <button type="button" onClick={limparCampos} className={styles.botaoDeletar}>{" "}
 
-                                <img src={Deletar} alt="" /> Deletar
+                                <img src={Deletar} alt="Figura de uma seta com x no meio" />
                                 </button>
                             </div>
 
@@ -373,18 +420,24 @@ function Solicitacao() {
                             <tr key={index}>
                                 
                                 <td>
-                                {" "}
-                                <img src={Lixeira} alt="" />{" "}
+                                    <button onClick={() => handleDelete(index)} className={styles.btnLixeira}>
+
+                                        <img className={styles.lixeira} src={Lixeira} alt="Deletar" />
+                                    </button>
                                 </td>
+                                
                                 <td> {item.colaborador} </td>
                                 <td> {item.empresa} </td>
                                 <td> {item.nPrestacao} </td>
                                 <td> {item.data}</td>
 
                                 <td>
-                                {" "}
-                                <img src={Motivo} alt="" />{" "}
+                                    <button>
+
+                                        <img src={Motivo} alt="Motivo" />
+                                    </button>
                                 </td>
+
                                 <td>{item.tipoReembolso}</td>
                                 <td>{item.centroCusto}</td>
                                 <td>{item.ordemInterna}</td>
@@ -399,10 +452,44 @@ function Solicitacao() {
                             ))}
                         </tbody>
                     </table>
-
-                    <button onClick={enviarParaAnalise}> Enviar para análise </button>
-
                 </main>
+
+                <footer  className={styles.footerSolicitacao}>
+                    <section>
+
+                        <div className={styles.inputFooter}>
+                            <label> Total Faturado </label>
+    
+                            <input type="text" value={dadosReembolso.reduce((total, item) => total + Number(item.valorFaturado || 0), 0 ).toFixed(2)} />
+                        </div>
+ 
+                        {/* .reduce serve para percorrer a lista inteira e somar os valores de valorFaturado/despesa.
+                        Soma o total atual com o valor da despesa do item.
+                        Usa Number(...) para garantir que seja um número (evita erros caso venha uma string).
+                        O 0 no final é o valor inicial da soma
+                        Usa item.despesa || 0 para evitar undefined — se não tiver valor, ele usa 0.
+                        .tofixed: Ele formata o número com 2 casas decimais.
+                        Mesmo que a soma dê 150, ele vai mostrar 150.00.
+                        Se a soma for 10.5, vai mostrar 10.50. */}
+                        <div>
+                            <label> Total Despesa </label>
+
+                            <input type="text" value={dadosReembolso.reduce((total, item) => total + Number(item.despesa || 0), 0).toFixed(2)} />
+                        </div>
+
+                        <div className={styles.boxButtonFooter}>
+                            <button className={styles.buttonAnalise} onClick={enviarParaAnalise} > {" "}
+
+                                <img src={Check} alt="" /> Enviar para Análise{" "}
+                            </button>
+                
+                            <button className={styles.buttonCancelar} onClick={cancelarSolicitacao} > {" "}
+
+                                <img src={Cancelar} alt="" /> Cancelar Solicitação{" "}
+                            </button>
+                        </div>
+                    </section>
+                </footer>
             </div>
         </div>
     );
